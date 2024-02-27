@@ -6,6 +6,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/selectProvider/bindings/select_provider_binding.dart';
+import '../modules/selectProvider/views/select_provider_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/welcome/bindings/welcome_binding.dart';
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.CGU,
       page: () => CguView(),
       binding: CguBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_PROVIDER,
+      page: () => const SelectProviderView(),
+      binding: SelectProviderBinding(),
     ),
   ];
 }

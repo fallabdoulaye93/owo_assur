@@ -8,6 +8,7 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const LOGIN = _Paths.LOGIN;
   static const CGU = _Paths.CGU;
+  static const SELECT_PROVIDER = _Paths.SELECT_PROVIDER;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const LOGIN = '/login';
   static const CGU = '/cgu';
+  static const SELECT_PROVIDER = '/select-provider';
 }

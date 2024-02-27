@@ -54,6 +54,7 @@ dependencies:
   flutter_html: ^3.0.0-beta.2
   flutter_svg:  # display svg vectors
   google_fonts: ^6.1.0
+  awesome_dialog: ^3.2.0
 
 
 dev_dependencies:
@@ -93,10 +94,13 @@ flutter:
     - assets/images/welcome/image4.png
     - assets/images/welcome/doctor.png
     - assets/images/welcome/pharmacie.png
+    - assets/images/welcome/hopital.png
     - assets/images/splash/logo.png
     - assets/images/splash/background.png
     - assets/images/login/fleche.png
     - assets/images/userImage.png
+    - assets/images/petitrond.png
+    - assets/images/grandrond.png
     - assets/vectors/
     - assets/fonts/
   fonts:

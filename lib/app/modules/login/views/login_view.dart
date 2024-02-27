@@ -20,8 +20,8 @@ class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    LoginController controller = Get.put(LoginController());
     return Scaffold(
-
       body: GetBuilder<LoginController>(
         builder: (_){
           return Scaffold(
@@ -31,7 +31,7 @@ class LoginView extends GetView<LoginController> {
               loadingWidget: () => const Center(child: CupertinoActivityIndicator(),),
               errorWidget: () => ApiErrorWidget(
                 message: Strings.internetError.tr,
-                retryAction: () => controller.getData(),
+                retryAction: () => {controller.login(context, controller.userTextFieldController.text, controller.passwordTextFieldController.text)},
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
               ),
               successWidget: () => SingleChildScrollView(
@@ -75,11 +75,11 @@ class LoginView extends GetView<LoginController> {
                                       const SizedBox(
                                         height: 30,
                                       ),
-                                      _labelTextInput("Email or ID", "Enter your informations", false),
+                                      _textFieldUserName("Email or ID", "Enter your informations", false),
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      _labelTextInput("Password", "Enter your password", true),
+                                      _textFieldPassword("Password", "Enter your password", true),
                                       const SizedBox(
                                         height: 30,
                                       ),
@@ -87,7 +87,7 @@ class LoginView extends GetView<LoginController> {
                                       const SizedBox(
                                         height: 30,
                                       ),
-                                      (controller.termsAccepted==true) ? _loginBtnActive() : _loginBtnUnactive(),
+                                      (controller.termsAccepted==true) ? _loginBtnActive(context) : _loginBtnUnactive(),
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -146,8 +146,9 @@ Widget _agreeTOS(Color textColor) {
   );
 }
 
-Widget _loginBtnActive() {
+Widget _loginBtnActive(BuildContext context) {
   var isDoctor = MySharedPref.getIsDoctor();
+  LoginController controller = Get.put(LoginController());
   return Container(
     width: double.infinity,
     height: 50.w,
@@ -157,7 +158,7 @@ Widget _loginBtnActive() {
     ),
     child: TextButton(
       onPressed: () => {
-         Get.toNamed(Routes.HOME)
+        controller.login(context, controller.userTextFieldController.text, controller.passwordTextFieldController.text)
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -211,7 +212,8 @@ Widget _loginBtnUnactive() {
   );
 }
 
-Widget _labelTextInput(String label, String hintText, bool isPassword) {
+Widget _textFieldUserName(String label, String hintText, bool isPassword) {
+  LoginController controller = Get.put(LoginController());
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -220,11 +222,12 @@ Widget _labelTextInput(String label, String hintText, bool isPassword) {
           style: TextStyle(fontSize: 15.0, color: Colors.black, fontWeight: FontWeight.w600),
       ),
       TextField(
+        controller: controller.userTextFieldController..text = "adeniyimoses247@gmail.com",
         obscureText: isPassword,
         cursorColor: Color(0xFF91B508),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 15.0, color: Color(0xffdfe8f3), fontWeight: FontWeight.w500),
+          hintStyle: TextStyle(fontSize: 15.0, color: Color(0xffdfe8f3), fontWeight: FontWeight.w200),
           enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: Color(0xffdfe8f3)),
           ),
@@ -233,6 +236,32 @@ Widget _labelTextInput(String label, String hintText, bool isPassword) {
     ],
   );
 }
+
+Widget _textFieldPassword(String label, String hintText, bool isPassword) {
+  LoginController controller = Get.put(LoginController());
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: TextStyle(fontSize: 15.0, color: Colors.black, fontWeight: FontWeight.w600),
+      ),
+      TextField(
+        controller: controller.passwordTextFieldController..text = "Password123",
+        obscureText: isPassword,
+        cursorColor: Color(0xFF91B508),
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(fontSize: 15.0, color: Color(0xffdfe8f3), fontWeight: FontWeight.w200),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xffdfe8f3)),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
 
 Widget _logo() {
   return Center(
