@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/constants.dart';
+import '../../../data/local/my_shared_pref.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
@@ -9,21 +10,41 @@ import '../../../services/base_client.dart';
 class HomeController extends GetxController {
   // hold data coming from api
   List<dynamic>? data;
+  Response? responseData;
+  String? fullname;
+  String? practitionerTypeName;
   // api call status
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 
-  navigateToPage(int index) {
-    if (index == 0) {
-      Get.toNamed(Routes.HOME);
-    } else if (index == 1) {
-      Get.toNamed(Routes.HOME);
-    } else if (index == 2) {
-      Get.toNamed(Routes.HOME);
-    }
+  @override
+  void onInit() {
+    apiCallStatus = ApiCallStatus.success;
+    getFullNameUserConnecte();
+    getPractitionerTypeName();
+
+    update();
+    super.onInit();
   }
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
+  getFullNameUserConnecte() async {
+    await MySharedPref.getUserFullName().then((value) {
+      fullname = value;
+    });
+  }
+  getPractitionerTypeName() async {
+    await MySharedPref.getUserPractitionerTypeName().then((value) {
+      practitionerTypeName = value;
+    });
+  }
+
 }

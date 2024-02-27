@@ -12,6 +12,7 @@ import '../../../../config/translations/strings_enum.dart';
 import '../../../components/api_error_widget.dart';
 import '../../../components/my_widgets_animator.dart';
 import '../../../data/local/my_shared_pref.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/select_provider_controller.dart';
 
 class SelectProviderView extends GetView<SelectProviderController> {
@@ -255,6 +256,8 @@ class ProviderCardView extends StatelessWidget {
             await MySharedPref.setUserEntityName(entity_name);
             await MySharedPref.setUserEntityDescription(entity_description);
             await MySharedPref.setUserEntityRegNo(entity_reg_no);
+
+            Get.offNamed(Routes.HOME);
           },
           child : Padding(
             padding: EdgeInsets.only(left: 10),
